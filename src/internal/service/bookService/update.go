@@ -12,7 +12,7 @@ func (s *bookStoreService) Update(ctx context.Context, sr *UpdateBookRequest) (*
 	default:
 		book, err := s.storage.Update(sr.Id, sr.UpdateData)
 		if err != nil {
-			return nil, fmt.Errorf("bookservice.Update err %w", err)
+			return nil, fmt.Errorf("bookService.Update err %w", err)
 		}
 		return &BookResponse{
 			Book: book,

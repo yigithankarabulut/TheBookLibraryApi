@@ -12,7 +12,7 @@ func (s *bookStoreService) List(ctx context.Context) (*ListBooksResponse, error)
 	default:
 		books, err := s.storage.List()
 		if err != nil {
-			return nil, fmt.Errorf("bookservice.List err %w", err)
+			return nil, fmt.Errorf("bookService.List err %w", err)
 		}
 		BooksListResult := make(ListBooksResponse, len(books))
 		var i int

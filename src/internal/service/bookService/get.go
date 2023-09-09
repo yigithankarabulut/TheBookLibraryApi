@@ -12,7 +12,7 @@ func (s *bookStoreService) Get(ctx context.Context, id int) (*BookResponse, erro
 	default:
 		result, err := s.storage.Get(id)
 		if err != nil {
-			return nil, fmt.Errorf("bookservice.Get err %w", err)
+			return nil, fmt.Errorf("bookService.Get err %w", err)
 		}
 		return &BookResponse{
 			Book: result,

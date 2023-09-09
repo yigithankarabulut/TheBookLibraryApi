@@ -12,7 +12,7 @@ func (s *bookStoreService) Set(ctx context.Context, sr *SetBookRequest) (*BookRe
 	default:
 		book, err := s.storage.Set(sr.Book)
 		if err != nil {
-			return nil, fmt.Errorf("bookservice.Set err %w", err)
+			return nil, fmt.Errorf("bookService.Set err %w", err)
 		}
 		return &BookResponse{
 			Book: book,
