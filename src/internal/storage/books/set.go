@@ -13,6 +13,9 @@ func (book *bookStorage) Set(books models.Book) (models.Book, error) {
 	if _, err := book.Get(books.Id); err == nil {
 		return models.Book{}, fmt.Errorf("book with id: %d already exists", books.Id)
 	}
+	if books == (models.Book{}) {
+		return models.Book{}, fmt.Errorf("book is empty")
+	}
 	insertResult, err := book.db.InsertOne(ctx, books)
 	if err != nil || insertResult.InsertedID == nil {
 		return models.Book{}, err
