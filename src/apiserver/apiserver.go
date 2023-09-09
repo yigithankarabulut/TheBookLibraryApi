@@ -102,12 +102,11 @@ func New(options ...Option) error {
 		httpservice.WithServerEnv(apisrv.serverEnv),
 		httpservice.WithLogger(logger),
 	)
+	httpStoreHandler.Router(app)
 
 	shutdown := make(chan os.Signal, 1)
 	apiError := make(chan error, 1)
 	signal.Notify(shutdown, syscall.SIGINT, syscall.SIGTERM)
-
-	httpStoreHandler.Router(app)
 
 	go func() {
 		logger.Info("starting api server...")
