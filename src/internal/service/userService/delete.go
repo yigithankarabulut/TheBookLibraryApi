@@ -11,7 +11,7 @@ func (s *userStoreService) Delete(ctx context.Context, memberNumber int) error {
 		return ctx.Err()
 	default:
 		if err := s.storage.Delete(memberNumber); err != nil {
-			return fmt.Errorf("userservice.Delete err: %w", err)
+			return fmt.Errorf("userService.Delete err: %w", err)
 		}
 		return nil
 	}
