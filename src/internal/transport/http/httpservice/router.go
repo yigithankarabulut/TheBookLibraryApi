@@ -2,7 +2,7 @@ package httpservice
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/yigithankarabulut/libraryapi/src/internal/transport/middlewares"
+	"github.com/yigithankarabulut/libraryapi/src/internal/transport/http/middlewares"
 )
 
 func (r *httpStorageHandler) Router(app fiber.Router) {
