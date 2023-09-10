@@ -15,7 +15,7 @@ func (r *httpStorageHandler) Router(app fiber.Router) {
 	app.Post("/crtbooks", r.CreateBook)
 	app.Post("/books/filter", r.FilterBooks)
 	app.Get("/books", r.GetBooks)
-	app.Get("/book/", r.GetBook)          // ?mem_number=123
-	app.Put("/updbook/", r.UpdateBook)    // ?mem_number=123
-	app.Delete("/delbook/", r.DeleteBook) // ?mem_number=123
+	app.Get("/book/", r.GetBook)          // ?id=123
+	app.Put("/updbook/", r.UpdateBook)    // ?id=123
+	app.Delete("/delbook/", r.DeleteBook) // ?id=123
 }
