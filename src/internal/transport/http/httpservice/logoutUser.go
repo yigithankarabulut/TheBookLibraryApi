@@ -7,16 +7,20 @@ import (
 )
 
 func (s *httpStorageHandler) LogoutUser(c *fiber.Ctx) error {
-	_, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), s.Handler.CancelTimeout)
 	defer cancel()
-	c.Cookie(&fiber.Cookie{
-		Name:     "jwt",
-		Value:    "",
-		Expires:  time.Now().Add(-time.Hour),
-		HTTPOnly: true,
-	})
-	return c.Status(200).JSON(fiber.Map{
-		"error":   nil,
-		"message": "User logged out successfully",
-	})
+	select {
+	case <-ctx.Done():
+		return c.Status(504).SendString("context deadline exceeded")
+	default:
+		c.Cookie(&fiber.Cookie{
+			Name:     "jwt",
+			Value:    "",
+			Expires:  time.Now().Add(-time.Hour),
+			HTTPOnly: true,
+		})
+		return c.Status(200).JSON(fiber.Map{
+			"message": "User logged out successfully",
+		})
+	}
 }

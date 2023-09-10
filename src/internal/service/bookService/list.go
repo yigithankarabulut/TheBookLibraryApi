@@ -20,6 +20,9 @@ func (s *bookStoreService) List(ctx context.Context) (*ListBooksResponse, error)
 			BooksListResult[i].Book = book
 			i++
 		}
+		if BooksListResult == nil {
+			return nil, fmt.Errorf("bookService.List err ")
+		}
 		return &BooksListResult, nil
 	}
 }

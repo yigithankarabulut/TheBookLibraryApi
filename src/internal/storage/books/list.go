@@ -11,7 +11,9 @@ func (book *bookStorage) List() ([]models.Book, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	result, err := book.db.Find(ctx, bson.M{})
-
+	if err != nil {
+		return []models.Book{}, err
+	}
 	var books []models.Book
 	if err = result.All(ctx, &books); err != nil {
 		return []models.Book{}, err

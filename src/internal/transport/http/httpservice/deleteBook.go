@@ -2,34 +2,31 @@ package httpservice
 
 import (
 	"context"
+	"errors"
 	"github.com/gofiber/fiber/v2"
 	"strconv"
-	"time"
 )
 
 func (s *httpStorageHandler) DeleteBook(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), s.Handler.CancelTimeout)
 	defer cancel()
 
-	id, err := strconv.Atoi(c.Query("id"))
-	if err != nil {
-		return c.Status(400).JSON(fiber.Map{
-			"error": "bad request",
-			"data":  "invalid query parameter",
-		})
+	id, convErr := strconv.Atoi(c.Query("id"))
+	if convErr != nil {
+		return c.Status(fiber.StatusNotFound).SendString("invalid query params")
 	}
-	resErr := s.bookService.Delete(ctx, id)
-	if resErr != nil {
+	err := s.bookService.Delete(ctx, id)
+	if err != nil {
+		if errors.Is(err, context.DeadlineExceeded) {
+			return c.Status(504).SendString("context deadline exceeded")
+		}
 		return c.Status(400).JSON(fiber.Map{
-			"error": resErr.Error(),
-			"data": map[string]interface{}{
-				"id": id,
-			},
+			"error": err.Error(),
+			"data":  nil,
 		})
 	}
 	c.Status(200).JSON(fiber.Map{
-		"error": nil,
-		"data":  "deleted successfully",
+		"data": "deleted successfully",
 	})
 	return nil
 }
