@@ -19,7 +19,7 @@ func TestHttpStorageHandler_UpdateBook_InvalidMethod(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodGet, "/updbook", nil)
+	req, _ := http.NewRequest(http.MethodPatch, "/book", nil)
 	cookie := http.Cookie{
 		Name:  "jwt",
 		Value: "test",
@@ -44,7 +44,7 @@ func TestHttpStorageHandler_UpdateBook_BodyReadError(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodPut, "/updbook", &errorReader{})
+	req, _ := http.NewRequest(http.MethodPut, "/book", &errorReader{})
 	req.Header.Set("Content-Type", "application/json")
 	_, err := app.Test(req, -1)
 
@@ -73,7 +73,7 @@ func TestHttpStorageHandler_UpdateBook_Timeout(t *testing.T) {
     "category":"rest",
     "pageCount":750
 	}`
-	req, _ := http.NewRequest(http.MethodPut, "/updbook/?id=1", strings.NewReader(handlerRequest))
+	req, _ := http.NewRequest(http.MethodPut, "/book/?id=1", strings.NewReader(handlerRequest))
 	req.Header.Set("Content-Type", "application/json")
 	cookie := http.Cookie{
 		Name:  "jwt",
@@ -100,7 +100,7 @@ func TestHttpStorageHandler_UpdateBook_InvalidQueryParams(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodPut, "/updbook", nil)
+	req, _ := http.NewRequest(http.MethodPut, "/book", nil)
 	cookie := http.Cookie{
 		Name:  "jwt",
 		Value: "test",
@@ -125,7 +125,7 @@ func TestHttpStorageHandler_UpdateBook_BodyUnmarshal(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodPut, "/updbook/?id=1", strings.NewReader(`{
+	req, _ := http.NewRequest(http.MethodPut, "/book/?id=1", strings.NewReader(`{
     "title":"Postmans",
     "author":"YK",
     "category":"rest}`))
@@ -160,7 +160,7 @@ func TestHttpStorageHandler_UpdateBook_IdNotFound(t *testing.T) {
     "pageCount":750
 	}`
 
-	req, _ := http.NewRequest(http.MethodPut, "/updbook/?id=3", strings.NewReader(handlerRequest))
+	req, _ := http.NewRequest(http.MethodPut, "/book/?id=3", strings.NewReader(handlerRequest))
 	req.Header.Set("Content-Type", "application/json")
 	cookie := http.Cookie{
 		Name:  "jwt",
@@ -198,7 +198,7 @@ func TestHttpStorageHandler_UpdateBook_Success(t *testing.T) {
     "pageCount":750
 	}`
 
-	req, _ := http.NewRequest(http.MethodPut, "/updbook/?id=1", strings.NewReader(handlerRequest))
+	req, _ := http.NewRequest(http.MethodPut, "/book/?id=1", strings.NewReader(handlerRequest))
 	req.Header.Set("Content-Type", "application/json")
 	cookie := http.Cookie{
 		Name:  "jwt",

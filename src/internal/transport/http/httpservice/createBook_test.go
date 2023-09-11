@@ -28,7 +28,7 @@ func TestHttpStorageHandler_CreateBook_InvalidMethod(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodGet, "/crtbooks", nil)
+	req, _ := http.NewRequest(http.MethodDelete, "/books", nil)
 	cookie := http.Cookie{
 		Name:  "jwt",
 		Value: "test",
@@ -53,7 +53,7 @@ func TestHttpStorageHandler_CreateBook_BodyReadError(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodPost, "/crtbooks", &errorReader{})
+	req, _ := http.NewRequest(http.MethodPost, "/books", &errorReader{})
 	req.Header.Set("Content-Type", "application/json")
 	cookie := http.Cookie{
 		Name:  "jwt",
@@ -74,7 +74,7 @@ func TestHttpStorageHandler_CreateBook_BodyUnmarshal(t *testing.T) {
 	handler.Router(r)
 
 	handlerRequest := bytes.NewBufferString(`{"key": "key", "value": "123}`)
-	req, _ := http.NewRequest(http.MethodPost, "/crtbooks", handlerRequest)
+	req, _ := http.NewRequest(http.MethodPost, "/books", handlerRequest)
 	req.Header.Set("Content-Type", "application/json")
 	cookie := http.Cookie{
 		Name:  "jwt",
@@ -94,7 +94,7 @@ func TestHttpStorageHandler_CreateBook_EmptyBody(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodPost, "/crtbooks", nil)
+	req, _ := http.NewRequest(http.MethodPost, "/books", nil)
 	cookie := http.Cookie{
 		Name:  "jwt",
 		Value: "test",
@@ -121,7 +121,7 @@ func TestHttpStorageHandler_CreateBook_FieldsIsEmpty(t *testing.T) {
 
 	handlerRequest := bytes.NewBufferString(`{"id":0,"title":""}`)
 
-	req, _ := http.NewRequest(http.MethodPost, "/crtbooks", handlerRequest)
+	req, _ := http.NewRequest(http.MethodPost, "/books", handlerRequest)
 	req.Header.Set("Content-Type", "application/json")
 	cookie := http.Cookie{
 		Name:  "jwt",
@@ -162,7 +162,7 @@ func TestHttpStorageHandler_CreateBook_Timeout(t *testing.T) {
         "language": "English"
     }`
 
-	req := httptest.NewRequest(http.MethodPost, "/crtbooks", strings.NewReader(jsonInput))
+	req := httptest.NewRequest(http.MethodPost, "/books", strings.NewReader(jsonInput))
 	req.Header.Set("Content-Type", "application/json")
 	cookie := http.Cookie{
 		Name:  "jwt",
@@ -203,7 +203,7 @@ func TestHttpStorageHandler_CreateBook_Success(t *testing.T) {
     "category":"rest",
     "language":"kotlin"
 	}`
-	req := httptest.NewRequest(http.MethodPost, "/crtbooks", strings.NewReader(jsonInput))
+	req := httptest.NewRequest(http.MethodPost, "/books", strings.NewReader(jsonInput))
 	req.Header.Set("Content-Type", "application/json")
 	cookie := http.Cookie{
 		Name:  "jwt",

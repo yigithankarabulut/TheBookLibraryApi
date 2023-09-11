@@ -18,7 +18,7 @@ func TestHttpStorageHandler_GetBook_InvalidMethod(t *testing.T) {
 	handler := httpservice.New()
 	r := fiber.Router(app)
 	handler.Router(r)
-	req, _ := http.NewRequest(http.MethodDelete, "/book", nil)
+	req, _ := http.NewRequest(http.MethodPatch, "/book", nil)
 	cookie := http.Cookie{
 		Name:  "jwt",
 		Value: "test",

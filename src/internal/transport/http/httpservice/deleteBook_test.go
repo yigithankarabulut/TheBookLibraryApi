@@ -16,7 +16,7 @@ func TestHttpStorageHandler_DeleteBook_InvalidMethod(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodGet, "/delbook", nil)
+	req, _ := http.NewRequest(http.MethodPatch, "/book", nil)
 	cookie := http.Cookie{
 		Name:  "jwt",
 		Value: "test",
@@ -41,7 +41,7 @@ func TestHttpStorageHandler_DeleteBook_InvalidQueryParams(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodDelete, "/delbook", nil)
+	req, _ := http.NewRequest(http.MethodDelete, "/book", nil)
 	cookie := http.Cookie{
 		Name:  "jwt",
 		Value: "test",
@@ -66,7 +66,7 @@ func TestHttpStorageHandler_DeleteBook_ParamKeyNotFound(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodDelete, "/delbook/?foo=test", nil)
+	req, _ := http.NewRequest(http.MethodDelete, "/book/?foo=test", nil)
 	cookie := http.Cookie{
 		Name:  "jwt",
 		Value: "test",
@@ -96,7 +96,7 @@ func TestHttpStorageHandler_DeleteBook_Timeout(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodDelete, "/delbook/?id=1", nil)
+	req, _ := http.NewRequest(http.MethodDelete, "/book/?id=1", nil)
 	cookie := http.Cookie{
 		Name:  "jwt",
 		Value: "test",
@@ -123,7 +123,7 @@ func TestHttpStorageHandler_DeleteBook_Success(t *testing.T) {
 	r := fiber.Router(app)
 	handler.Router(r)
 
-	req, _ := http.NewRequest(http.MethodDelete, "/delbook/?id=1", nil)
+	req, _ := http.NewRequest(http.MethodDelete, "/book/?id=1", nil)
 	cookie := http.Cookie{
 		Name:  "jwt",
 		Value: "test",

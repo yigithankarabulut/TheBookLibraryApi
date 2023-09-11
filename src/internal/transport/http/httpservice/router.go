@@ -12,10 +12,10 @@ func (r *httpStorageHandler) Router(app fiber.Router) {
 	app.Use(middlewares.JWTMiddleware())
 
 	app.Get("/logout", r.LogoutUser)
-	app.Post("/crtbooks", r.CreateBook)
+	app.Post("/books", r.CreateBook)
 	app.Post("/books/filter", r.FilterBooks)
 	app.Get("/books", r.GetBooks)
-	app.Get("/book/", r.GetBook)          // ?id=123
-	app.Put("/updbook/", r.UpdateBook)    // ?id=123
-	app.Delete("/delbook/", r.DeleteBook) // ?id=123
+	app.Get("/book/", r.GetBook)       // ?id=123
+	app.Put("/book/", r.UpdateBook)    // ?id=123
+	app.Delete("/book/", r.DeleteBook) // ?id=123
 }
