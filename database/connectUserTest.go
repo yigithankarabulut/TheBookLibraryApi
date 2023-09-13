@@ -10,7 +10,7 @@ import (
 
 func FakeConnectUser() *mongo.Collection {
 	serverApi := options.ServerAPI(options.ServerAPIVersion1)
-	opts := options.Client().ApplyURI("mongodb+srv://yigithankarabulut:Yigitk12..12.@cluster0.wqmtmvm.mongodb.net/?retryWrites=true&w=majority").SetServerAPIOptions(serverApi)
+	opts := options.Client().ApplyURI("connection-key").SetServerAPIOptions(serverApi)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
