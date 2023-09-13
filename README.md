@@ -18,8 +18,7 @@ To run the project, you'll need the following:
 
 To start the project, follow these steps:
 
-- Replace the connection key in the database/dbconnect.go file with your own mongodb connection key
-- Change the SECRET_KEY and ADMIN_KEY in the .env file
+- Replace the connection key in the database/{dbconnect,connectBookTest,connectUserTest}.go file with your own mongodb connection key
 
 -Navigate to the project directory:
 
